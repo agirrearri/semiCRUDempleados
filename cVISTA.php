@@ -39,7 +39,9 @@ class cVISTA {
    }
    
     public function mostrarTabla($lista){
+       if($lista!= false){
             ?>
+
        <br><br><br><br>
         <table border>
             <th>EMPLEADO</th>
@@ -52,6 +54,10 @@ class cVISTA {
            <?php }?>
         </table>
        <?php
+       
+           }else{
+               echo("no hay empleados en departamentos");
+           }
       
     }
     

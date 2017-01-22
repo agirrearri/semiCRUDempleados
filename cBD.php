@@ -29,9 +29,9 @@ class cBD {
         $consulta_empleados = "SELECT * FROM empleados";
 
         $resultado = $this->conexion->query($consulta_empleados);
-
+        $empleados = array();
         if ($resultado->num_rows > 0) {
-            $empleados = array();
+           
             for ($i = 0; $i < $resultado->num_rows; $i++) {
                 $empleados[] = $resultado->fetch_object();
             }
@@ -39,7 +39,8 @@ class cBD {
             return($empleados);
         } else {
             return false; //si no hay empleados devolveria FALSE
-        }
+          
+    }
     }
 
     //MÉTODO QUE DEVUELVE TODOS LOS DEPARTAMENTOS
@@ -63,10 +64,17 @@ class cBD {
 
     //MÉTODO PARA INSERTAR EN LA TABLA EMPLEADODEPARTAMENTO, EL CODIGO DE EMPLEADO Y EL CODIGO DEL DEPARTAMENTO
     public function anadirEmpDep($id_empleados, $id_dep) {
-
+       
         for ($i = 0; $i < count($id_empleados); $i++) {
-            $insertar = "INSERT INTO empleadodepartamento (empleado,departamento) VALUES('$id_empleados[$i]','$id_dep')";
-            $this->conexion->query($insertar);
+            $resultado = $this->conexion->query("select * from empleadodepartamento where empleado = $id_empleados[$i]");
+            
+            if($resultado->num_rows > 0 ){
+                $sql = "UPDATE `empleadodepartamento` SET `empleado`=$id_empleados[$i],`departamento`=$id_dep WHERE empleado = $id_empleados[$i]";
+            }else{
+                $sql = "INSERT INTO empleadodepartamento (empleado,departamento) VALUES('$id_empleados[$i]','$id_dep')";
+            }
+            
+            $this->conexion->query($sql);
         }
     }
 

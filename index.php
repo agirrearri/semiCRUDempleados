@@ -16,8 +16,7 @@ and open the template in the editor.
         
         $v1=new cVISTA(); 
         $bd=new cBD();
-        
-        
+ 
          $v1->mostrarFormulario($bd->listadoEmpleados(),$bd->listadoDepartamentos());
          
          
