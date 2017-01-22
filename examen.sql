@@ -52,20 +52,6 @@ CREATE TABLE IF NOT EXISTS `empleadodepartamento` (
   `departamento` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `empleadodepartamento`
---
-
-INSERT INTO `empleadodepartamento` (`empleado`, `departamento`) VALUES
-(1, 10),
-(2, 20),
-(3, 20),
-(4, 30),
-(5, 30),
-(6, 30),
-(7, 30),
-(8, 40),
-(10, 40);
 
 -- --------------------------------------------------------
 
