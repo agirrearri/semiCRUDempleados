@@ -23,6 +23,28 @@ class cBD {
         $this->conexion->close();
     }
 
+    public function empleado($id) {
+        $consulta_empleado = "SELECT empleados.*, empleadodepartamento.departamento FROM `empleados` left join empleadodepartamento on empleados.codigo = empleadodepartamento.empleado where codigo = $id";
+
+        $resultado = $this->conexion->query($consulta_empleado);
+        if ($resultado->num_rows > 0) {
+
+
+            return($resultado->fetch_object());
+        } else {
+            return false; //si no hay empleados devolveria FALSE
+        }
+    }
+
+    public function editarEmpleado($id, $nombre, $departamento) {
+      
+        $sql = "UPDATE empleados SET NombreCompleto='$nombre' WHERE codigo = $id";
+        //echo $sql;
+        $this->conexion->query($sql);
+
+        $this->anadirEmpDep(array($id), $departamento);
+    }
+
     //MÉTODO QUE DEVUELVE TODOS LOS EMPLEADOS
     public function listadoEmpleados() {
 
@@ -31,7 +53,7 @@ class cBD {
         $resultado = $this->conexion->query($consulta_empleados);
         $empleados = array();
         if ($resultado->num_rows > 0) {
-           
+
             for ($i = 0; $i < $resultado->num_rows; $i++) {
                 $empleados[] = $resultado->fetch_object();
             }
@@ -39,8 +61,7 @@ class cBD {
             return($empleados);
         } else {
             return false; //si no hay empleados devolveria FALSE
-          
-    }
+        }
     }
 
     //MÉTODO QUE DEVUELVE TODOS LOS DEPARTAMENTOS
@@ -64,16 +85,15 @@ class cBD {
 
     //MÉTODO PARA INSERTAR EN LA TABLA EMPLEADODEPARTAMENTO, EL CODIGO DE EMPLEADO Y EL CODIGO DEL DEPARTAMENTO
     public function anadirEmpDep($id_empleados, $id_dep) {
-       
+
         for ($i = 0; $i < count($id_empleados); $i++) {
             $resultado = $this->conexion->query("select * from empleadodepartamento where empleado = $id_empleados[$i]");
-            
-            if($resultado->num_rows > 0 ){
+
+            if ($resultado->num_rows > 0) {
                 $sql = "UPDATE `empleadodepartamento` SET `empleado`=$id_empleados[$i],`departamento`=$id_dep WHERE empleado = $id_empleados[$i]";
-            }else{
+            } else {
                 $sql = "INSERT INTO empleadodepartamento (empleado,departamento) VALUES('$id_empleados[$i]','$id_dep')";
             }
-            
             $this->conexion->query($sql);
         }
     }

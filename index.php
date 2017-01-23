@@ -33,6 +33,12 @@ and open the template in the editor.
         {
             
             $v1->mostrarTabla($bd->listadoDepEmp());
+        }else if(isset($_POST["editar"])){
+            $v1->mostrarTablaEditora($bd->listadoEmpleados());
+        }else if(isset ($_POST['guardar'])){
+            
+            $bd->editarEmpleado($_POST['id'], $_POST['nombre'], $_POST['dep_selec']);
+            echo($_POST['nombre'] .  " cambiado");
         }
          
         ?>

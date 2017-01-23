@@ -32,6 +32,7 @@ class cVISTA {
         </br></br>
         <input type="submit" name="asociar" value="ASOCIAR"/>
         <input type="submit" name="listar" value="LISTAR"/>
+        <input type="submit" name="editar" value="TABLA EDITORA"/>
        
         
     </form>    
@@ -58,8 +59,55 @@ class cVISTA {
            }else{
                echo("no hay empleados en departamentos");
            }
-      
+    } 
+    
+    public function mostrarTablaEditora($lista){
+       if($lista!= false){
+            ?>
+
+       <br><br><br><br>
+        <table border>
+            <th>EMPLEADO</th>
+           <?php foreach ($lista as  $value) {?>
+            <tr>
+                <td><a href="editarEmpleado.php?id=<?=$value->codigo?>">Editar <?=$value->NombreCompleto ?></a></td>
+            </tr>
+           <?php }?>
+        </table>
+       <?php
+       
+           }else{
+               echo("no hay empleados en departamentos");
+           }
     }
+    
+    public function mostrarFormularioEditor($empleado, $departamentos){
+        print_r($departamentos);
+        echo '<br>';
+        print_r($empleado);
+        ?>
+       <h1>Editar EMPLEADO</h1>
+        <form action="index.php" method="POST">
+            <input type="hidden" name="id" value="<?= $empleado->codigo?>"/>
+            Nombre: <input type="text" name="nombre" value="<?=$empleado->NombreCompleto?>"/><br>
+            Departamento:
+            <select name="dep_selec">
+            <?php    
+                foreach ($departamentos as  $dep) 
+                {
+                    ?>
+                  <option  value="<?php echo $dep->codigo;?>" <?php echo ($empleado->departamento==$dep->codigo)?  "selected":"" ?>><?=$dep->descripcion?></option> 
+               <?php 
+               }
+               ?>
+        </select>
+            <input type="submit" value="GUARDAR" name="guardar"/>
+        </form>
+                
+            
+            <?php
+    }
+    
     
     
 }
