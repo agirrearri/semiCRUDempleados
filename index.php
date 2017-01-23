@@ -40,6 +40,8 @@ and open the template in the editor.
             $bd->editarEmpleado($_POST['id'], $_POST['nombre'], $_POST['dep_selec']);
             echo($_POST['nombre'] .  " cambiado");
         }
+        
+        $v1->mostrarFormulario($bd->listadoEmpleados(),$bd->listadoDepartamentos());
          
         ?>
     </body>
