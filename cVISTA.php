@@ -82,9 +82,6 @@ class cVISTA {
     }
     
     public function mostrarFormularioEditor($empleado, $departamentos){
-        print_r($departamentos);
-        echo '<br>';
-        print_r($empleado);
         ?>
        <h1>Editar EMPLEADO</h1>
         <form action="index.php" method="POST">
