@@ -14,14 +14,11 @@ and open the template in the editor.
         include 'cVISTA.php';
         include 'cBD.php';
         
-        $v1=new cVISTA();
+        $v1=new cVISTA(); 
         $bd=new cBD();
-
+ 
         if(isset($_GET['id'])){
-            //
-            $v1->mostrarFormularioEditor($bd->listadoDepartamentos(),$bd->empleado($_GET['id']));
-        }else{
-            $v1->mostrarFormularioEditor($bd->listadoDepartamentos());
+            $v1->mostrarFormularioEditor($bd->empleado($_GET['id']),$bd->listadoDepartamentos());
         }
         ?>
     </body>
