@@ -18,7 +18,10 @@ and open the template in the editor.
         $bd=new cBD();
 
         if(isset($_GET['id'])){
-            $v1->mostrarFormularioEditor($bd->empleado($_GET['id']),$bd->listadoDepartamentos());
+            //
+            $v1->mostrarFormularioEditor($bd->listadoDepartamentos(),$bd->empleado($_GET['id']));
+        }else{
+            $v1->mostrarFormularioEditor($bd->listadoDepartamentos());
         }
         ?>
     </body>

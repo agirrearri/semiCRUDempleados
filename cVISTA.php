@@ -85,8 +85,8 @@ class cVISTA {
         ?>
        <h1>Editar EMPLEADO</h1>
         <form action="index.php" method="POST">
-            <input type="hidden" name="id" value="<?=($empleado!= NULL)? $empleado->codigo: "" ?>"/>
-            Nombre: <input type="text" name="nombre" value="<?=$empleado->NombreCompleto?>"/><br>
+            <input type="hidden" name="id" value="<?=($empleado)? $empleado->codigo: "" ?>"/>
+            Nombre: <input type="text" name="nombre" value="<?=($empleado)? $empleado->NombreCompleto: "" ?>"/><br>
             Departamento:
             <select name="dep_selec">
             <?php    
