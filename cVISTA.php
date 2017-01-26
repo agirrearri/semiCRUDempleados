@@ -81,21 +81,30 @@ class cVISTA {
            }
     }
     
-    public function mostrarFormularioEditor($empleado, $departamentos){
+    public function mostrarFormularioEditor($departamentos, $empleado = NULL){
         ?>
        <h1>Editar EMPLEADO</h1>
         <form action="index.php" method="POST">
-            <input type="hidden" name="id" value="<?= $empleado->codigo?>"/>
+            <input type="hidden" name="id" value="<?=($empleado!= NULL)? $empleado->codigo: "" ?>"/>
             Nombre: <input type="text" name="nombre" value="<?=$empleado->NombreCompleto?>"/><br>
             Departamento:
             <select name="dep_selec">
             <?php    
+            if($empleado){//para update
                 foreach ($departamentos as  $dep) 
                 {
                     ?>
                   <option  value="<?php echo $dep->codigo;?>" <?php echo ($empleado->departamento==$dep->codigo)?  "selected":"" ?>><?=$dep->descripcion?></option> 
                <?php 
                }
+            }else{//form vacio para insert
+                foreach ($departamentos as  $dep) 
+                {
+                    ?>
+                  <option  value="<?php echo $dep->codigo;?>" > <?=$dep->descripcion?></option> 
+               <?php 
+               }
+            }
                ?>
         </select>
             <input type="submit" value="GUARDAR" name="guardar"/>
