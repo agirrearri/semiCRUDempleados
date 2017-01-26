@@ -15,10 +15,7 @@ and open the template in the editor.
         include 'cBD.php';
         
         $v1=new cVISTA(); 
-        $bd=new cBD();
- 
-         $v1->mostrarFormulario($bd->listadoEmpleados(),$bd->listadoDepartamentos());
-         
+        $bd=new cBD();    
          
          if(isset($_POST["asociar"]))
         {
