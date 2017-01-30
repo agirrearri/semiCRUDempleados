@@ -18,11 +18,7 @@ $bd = new cBD();
     </head>
     <body>
         <?php
-        if (isset($_GET['id'])) {
-            $v1->mostrarFormularioEditarEmpleado($bd->listadoDepartamentos(), $bd->empleado($_GET['id']));
-        }
+        $v1->mostrarFormularioCrearEmpleado($bd->listadoDepartamentos());
         ?>
     </body>
 </html>
-
-

@@ -24,7 +24,7 @@ class cBD {
     }
 
     public function empleado($id) {
-        $consulta_empleado = "SELECT empleados.*, empleadodepartamento.departamento FROM `empleados` left join empleadodepartamento on empleados.codigo = empleadodepartamento.empleado where codigo = $id";
+        $consulta_empleado = "SELECT empleados.* FROM `empleados` where id = $id";
 
         $resultado = $this->conexion->query($consulta_empleado);
         if ($resultado->num_rows > 0) {
@@ -35,14 +35,20 @@ class cBD {
             return false; //si no hay empleados devolveria FALSE
         }
     }
+    
+    public function anadirEmpleado($nombre, $departamento){
+        $sql = "insert into empleados (nombre, id_departamento) values ('$nombre', $departamento)";
+       // echo $sql;
+        $resultado = $this->conexion->query($sql);
+        return $resultado;
+        
+    }
 
     public function editarEmpleado($id, $nombre, $departamento) {
       
-        $sql = "UPDATE empleados SET NombreCompleto='$nombre' WHERE codigo = $id";
+        $sql = "UPDATE empleados SET nombre='$nombre', id_departamento = $departamento WHERE id = $id";
         //echo $sql;
         $this->conexion->query($sql);
-
-        $this->anadirEmpDep(array($id), $departamento);
     }
 
     //MÉTODO QUE DEVUELVE TODOS LOS EMPLEADOS
@@ -87,13 +93,9 @@ class cBD {
     public function anadirEmpDep($id_empleados, $id_dep) {
 
         for ($i = 0; $i < count($id_empleados); $i++) {
-            $resultado = $this->conexion->query("select * from empleadodepartamento where empleado = $id_empleados[$i]");
-
-            if ($resultado->num_rows > 0) {
-                $sql = "UPDATE `empleadodepartamento` SET `empleado`=$id_empleados[$i],`departamento`=$id_dep WHERE empleado = $id_empleados[$i]";
-            } else {
-                $sql = "INSERT INTO empleadodepartamento (empleado,departamento) VALUES('$id_empleados[$i]','$id_dep')";
-            }
+            $sql = "UPDATE empleados SET id_departamento=$id_dep WHERE id = $id_empleados[$i]";
+           echo $sql;
+           echo '<br>';
             $this->conexion->query($sql);
         }
     }
@@ -101,7 +103,7 @@ class cBD {
     //MÉTODO PARA OBTENER EL LISTADO DE EMPLEADODEPARTAMENTO
     public function listadoDepEmp() {
         //AQUI HAGO LA CONSULTA DE LOS EMPLEADOS Y LOS DEPARTAMENTOS EN LOS QUE ESTAN, OBTENIENDO SU NOMBRE
-        $consulta_todo = "SELECT e.NombreCompleto,d.descripcion FROM empleados e,departamentos d,empleadodepartamento ed WHERE e.codigo=ed.empleado AND d.codigo=ed.departamento";
+        $consulta_todo = "SELECT empleados.nombre as empleado, departamentos.nombre as departamento FROM empleados left join departamentos on empleados.id_departamento = departamentos.id";
 
         $resultado = $this->conexion->query($consulta_todo);
 
@@ -110,7 +112,7 @@ class cBD {
             for ($i = 0; $i < $resultado->num_rows; $i++) {
                 $listaDepEmp[] = $resultado->fetch_object();
             }
-
+            
             return($listaDepEmp);
         }
     }
