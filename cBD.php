@@ -94,8 +94,8 @@ class cBD {
 
         for ($i = 0; $i < count($id_empleados); $i++) {
             $sql = "UPDATE empleados SET id_departamento=$id_dep WHERE id = $id_empleados[$i]";
-           echo $sql;
-           echo '<br>';
+//           echo $sql;
+//           echo '<br>';
             $this->conexion->query($sql);
         }
     }
