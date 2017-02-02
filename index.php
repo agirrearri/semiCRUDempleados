@@ -26,6 +26,7 @@ and open the template in the editor.
         } else if (isset($_POST["listar"])) {
             $v1->mostrarTabla($bd->listadoDepEmp());
         } else if (isset($_POST["editar"])) {
+            //mostrar tabla editora
             $v1->mostrarTablaEditora($bd->listadoEmpleados());
         } else if (isset($_POST['guardar'])) {//insert o delete de empleado
             //update de empleado
