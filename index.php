@@ -36,10 +36,12 @@ and open the template in the editor.
                 //insert en empleado
                 $bd->anadirEmpleado($_POST['nombre'], $_POST['dep_selec']);
             }
-
             //echo($_POST['nombre'] .  " cambiado");
         } else if (isset($_POST['crear'])) {
             header("Location: crearEmpleado.php");
+        }else if(isset($_POST['eliminar'])){
+            $modelo->eliminarDepartamento($_POST['dep_selec']);
+            echo "departamento eliminado";
         }
 
         $v1->mostrarFormulario($bd->listadoEmpleados(), $bd->listadoDepartamentos());

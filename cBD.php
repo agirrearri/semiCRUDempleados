@@ -12,15 +12,10 @@ class cBD {
     //método conectar la bd
     public function conectar() {
 
-        $this->conexion = new mysqli('localhost', 'root', '', '2ebal_examen');
+        $this->conexion = new mysqli('localhost', 'root', '', '2ebal_empresa');
         if ($this->conexion->connect_errno) { //intento conectar a la BD
             die('Error en la conexion: ' . $this->conexion->connect_error);
         }
-    }
-
-    //método para desconectar la bd
-    public function desconectar() {
-        $this->conexion->close();
     }
 
     public function empleado($id) {
@@ -89,15 +84,19 @@ class cBD {
         }
     }
 
-    //MÉTODO PARA INSERTAR EN LA TABLA EMPLEADODEPARTAMENTO, EL CODIGO DE EMPLEADO Y EL CODIGO DEL DEPARTAMENTO
+    //asigna un departamento a los empleados
     public function anadirEmpDep($id_empleados, $id_dep) {
 
-        for ($i = 0; $i < count($id_empleados); $i++) {
-            $sql = "UPDATE empleados SET id_departamento=$id_dep WHERE id = $id_empleados[$i]";
-//           echo $sql;
-//           echo '<br>';
-            $this->conexion->query($sql);
+//        for ($i = 0; $i < count($id_empleados); $i++) {
+//            $sql = "UPDATE empleados SET id_departamento=$id_dep WHERE id = $id_empleados[$i]";
+//            $this->conexion->query($sql);
+//        }
+        foreach($id_empleados as $id_empleado){
+            $sql = "UPDATE empleados SET id_departamento=$id_dep WHERE id = $id_empleado";
+             $this->conexion->query($sql);
         }
+            
+        
     }
 
     //MÉTODO PARA OBTENER EL LISTADO DE EMPLEADODEPARTAMENTO
@@ -115,6 +114,15 @@ class cBD {
             
             return($listaDepEmp);
         }
+    }
+    
+    public function eliminarDepartamento($id_departamento){
+        //delete usuarios del departamento
+        $sql = "DELETE FROM empleados WHERE  id_departamento=$id_departamento";
+        $this->conexion->query($sql);
+        $sql="DELETE FROM `departamentos` WHERE id=$id_departamento";
+        $this->conexion->query($sql);
+        //delete departamento
     }
 
 }

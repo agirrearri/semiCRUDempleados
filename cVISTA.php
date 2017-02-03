@@ -31,6 +31,7 @@ class cVISTA {
             <input type="submit" name="listar" value="LISTAR"/>
             <input type="submit" name="editar" value="TABLA EDITORA"/>
             <input type="submit" name="crear" value="CREAR EMPLEADO"/>
+            <input type="submit" name="eliminar" value="ELIMINAR DEPARTAMENTO"/>
 
 
         </form>    
@@ -75,7 +76,7 @@ class cVISTA {
               <br>
             <?php
         } else {
-            echo("no hay empleados en departamentos");
+            echo("no hay empleados");
         }
     }
 
@@ -113,15 +114,13 @@ class cVISTA {
         <?php
         foreach ($departamentos as $dep) {
             ?>
-                    <option  value="<?php echo $dep->id; ?>" <?php echo ($empleado->id_departamento == $dep->id) ? "selected" : "" ?>><?= $dep->nombre ?></option> 
+                    <option  value="<?php echo $dep->id; ?>"><?= $dep->nombre ?></option> 
                     <?php
                 }
                 ?>
             </select>
             <input type="submit" value="GUARDAR" name="guardar"/>
         </form>
-
-
         <?php
     }
 
